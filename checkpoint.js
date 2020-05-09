@@ -5,7 +5,15 @@ function menorMayor(numeros) {
   // Escribi una función llamada menorMayor que tome como entrada un arreglo de números y devuelva un arreglo 
   // que contenga el menor número del arreglo en la posición cero y el mayor número del arreglo en la posición 1.
   // Ej: menorMayor([4, 6, 1, 7, 15]) // retorna [1, 15]
-
+  var Maxmin =[numeros[0], numeros[0]];
+  for (var i = 1; i <= numeros.length-1; i++) {
+    if (numeros[i] < Maxmin[0]) {
+      Maxmin[0]=numeros[i];
+    }else if(numeros[i] > Maxmin[1]){
+      Maxmin[1]=numeros[i];
+    }
+  }
+  return Maxmin
 }
 
 function stringMasLarga(strings) {
@@ -14,7 +22,13 @@ function stringMasLarga(strings) {
   // Ej:
   // stringMasLarga(['hi', 'hello', 'ni hao', 'guten tag']); // returns 'guten tag'
   // stringMasLarga(['JavaScript', 'HTML', 'CSS']); // returns 'JavaScript'
-
+  aux= strings[0];
+  for (var i = 1; i < strings.length; i++) {
+    if (aux.length < strings[i].length) {
+      aux=strings[i];
+    }
+  }
+  return aux;
 }
 
 function buscarAmigo(amigos, nombre) {
@@ -24,7 +38,12 @@ function buscarAmigo(amigos, nombre) {
   // Ej:
   //  var amigos = [{ nombre: 'toni', edad: 33 } , { nombre: 'Emi', edad: 25 }];
   //  buscarAmigo(amigos, 'toni') // retorna { nombre: 'toni', edad: 33 };
-  
+  for (let i = 0; i < amigos.length; i++) {
+    if (nombre==amigos[i].nombre) {
+      return amigos[i];
+    }
+  }
+  return 'No se encontró el amigo ' + nombre;
 }
 
 function sumArray(array, n) {
@@ -35,7 +54,14 @@ function sumArray(array, n) {
   // sumArray([2,5,7,10,11,15,20], 13)  // retorna true     2+11 suman 13
   // sumArray([2,5,7,10,11,15,20], 14)  // retorna false
   // pista: podes usar bucles anidados;
-  
+  for (var i = 0; i < array.length-1; i++) {
+    for (var x = i+1; x <= array.length-1; x++) {
+      if (n==(array[i]+array[x])) {
+        return true
+      }
+    }
+  }
+  return false
 };
 
 function pluck(array, propiedad) { 
@@ -46,8 +72,10 @@ function pluck(array, propiedad) {
   // var productos = [{ name: 'TV LCD', price: 100}, { name: 'Computadora', price: 500 }]
   // productos.pluck(productos, 'name') // ['TV LCD', 'Computadora']
   // pista: es una buena oportunidad para usar map.
-  
-  
+  var nuevoPluck = array.map(function (e){
+    return e[propiedad]
+  })
+  return nuevoPluck
 }
 
 // =======================================================================
@@ -61,34 +89,43 @@ function crearClasePersona() {
 
   class Persona {
     constructor(nombre, edad, hobbies, amigos) {
-      
+      this.nombre=nombre,
+      this.edad=edad,
+      this.hobbies=hobbies,
+      this.amigos=amigos
     }
 
     addFriend(nombre, edad) {
       // el metodo addFriend recibe un string nombre y un entero edad y debe agregar un objeto:
       // { nombre: nombre, edad: edad} al arreglo de amigos de la persona.
       // no debe retornar nada.
-      
+      this.amigos.push ({nombre: nombre,edad: edad});
     }
 
     addHobby(hobby) {
       // este método debe agregar un hobby (hobby) al arreglo de hobbies de la persona.
       // no debe retornar nada.
-      
+      this.hobbies.push (hobby);
     }
     getFriends() {
       // Escribe una función que retorne un arreglo con sólo los nombres del arreglo de amigos
       // de la persona.
       // Ej:
       // persona.getFriends() // retorna ['toni', 'Leo', 'Manu']
-      
+      var nuevoAmigos = this.amigos.map(function(e){
+        return e.nombre
+      })
+      return nuevoAmigos
     }
 
     getHobbies() {
       // Escribe una función que retorne un arreglo con los hobbies de la persona
       // Ej:
       // persona.getHobbies() // retorna ['correr', 'dormir', 'nadar']
-      
+      var nuevoHobbies = this.hobbies.map(function(e){
+        return e
+      })
+      return nuevoHobbies
     }
 
     getPromedioEdad() {
@@ -104,6 +141,12 @@ function crearClasePersona() {
       //   }]
       // }
       // persona.getPromedioEdad() // retorna 29
+      var sum=0;
+      for (let i = 0; i < this.amigos.length; i++) {
+        sum=sum+this.amigos[i].edad;
+      }
+      var prom = sum/(this.amigos.length);
+      return prom
     }
   };
 

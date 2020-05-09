@@ -1,0 +1,30 @@
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div {
+    background-color: yellow;
+    width: 500px;
+}
+li{
+    font-size: 25px;
+    color: red;
+}
+img{
+    height: 150px;
+    width: 300;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+a{
+    color: blue;
+}
+a:hover{
+    color: red;
+}
+a:active{
+    color: green;
+}
